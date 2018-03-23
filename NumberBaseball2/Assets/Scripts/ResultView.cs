@@ -30,6 +30,17 @@ public class ResultView : MonoBehaviour {
     public Color BallColor;
     public Color OutColor;
 
+	public Text ScoreText;
+	public float num1;
+
+	public Button submitButton;
+
+	void Start () {		
+		
+		num1 = 1000;
+		ScoreText.text = string.Format ("점수 : {0}", num1);
+	}
+
     public void DisplayResult(Result result)
     {
         submitCount++;
@@ -43,6 +54,12 @@ public class ResultView : MonoBehaviour {
         {
             GameObject obj = Instantiate(ResultItem, Content);
             obj.GetComponent<ResultItem>().Setup(submitCount, result);
+			num1 = num1 - 100;
+			ScoreText.text = string.Format ("점수 : {0}", num1);
+			if (num1 == 0) 
+			{				
+				submitButton.interactable = false;
+			}
         }
         for (int i = 0; i < 3; i++)
         {
