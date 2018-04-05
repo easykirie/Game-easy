@@ -6,10 +6,9 @@ public class BallController : MonoBehaviour {
 
     public float BallSpeed = 10;
     public Transform SpawnPosition;
-    public GameObject Ball;
-    public float ReviveCount;
-    public GameObject[] Players;
-    bool FirstCheck;
+    public GameObject Ball;    
+    public GameObject Player;
+    public bool FirstCheck;
     Rigidbody rigid;
     public Transform tr;//플레이어 위치.
     public Transform b_tr;//공위치.
@@ -17,20 +16,34 @@ public class BallController : MonoBehaviour {
 
     public GameObject Blcok;
 
-
+    public int rev;
+    public bool CanCreate;
 
     private void Awake()
     {
-        BallCreate();
+        BallCreate();        
+        CanCreate = true;
+        //rev = GetComponent<BallDeath>().ReviveCount;
     }
     // Use this for initialization
     void Start () {
-        //rigid = GetComponent<Rigidbody>();
+        
     }
 	
 	// Update is called once per frame
 	void Update () {
+
         BallShoot();
+
+        /*if (CanCreate == true && obj == null)
+        {
+            BallCreate();
+        }
+        if(rev <= 0)
+        {
+            CanCreate = false;
+        }*/
+        
 	}
 
     void BallCreate()
@@ -47,20 +60,11 @@ public class BallController : MonoBehaviour {
         {
             FirstCheck = true;
             obj.transform.SetParent(null);//부모 오브젝트에서 꺼냄(공을) 발사때만.
-            rigid.AddForce(Vector3.up * BallSpeed, ForceMode.Impulse);            
+            rigid.AddForce(Vector3.up * BallSpeed);            
         }
     }
-    void BlockBreack()//공이 부딪히면 블록 제거.
-    {
-        
-    }
-    private void OnTriggerEnter(Collider col)//볼 스크립트 따로 만들어서 넣음됨.
-    {
-        if(col.gameObject.tag == "Block")
-        {
-            Destroy(col.gameObject, 0.1f);
-        }
-    }
+    
+
 
 
 }

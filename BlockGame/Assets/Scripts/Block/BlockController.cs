@@ -2,25 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BallDeath : MonoBehaviour {
+public class BlockController : MonoBehaviour {
 
-    public float re;
-    public GameObject Ball;
+    
+    
 
 	// Use this for initialization
 	void Start () {
-        re = GetComponent<BallController>().ReviveCount;
+        
 	}	
 
 	// Update is called once per frame
 	void Update () {
 		
 	}
-    void OnTriggerEnter(Collider col)
+    
+
+    void OnCollisionEnter(Collision col)
     {
         if(col.gameObject.tag == "Ball")
         {
-            Destroy(Ball, 0.1f);
+            Destroy(gameObject);
         }
     }
 }
