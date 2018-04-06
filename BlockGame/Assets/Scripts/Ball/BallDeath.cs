@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class BallDeath : MonoBehaviour {
 
-    public int ReviveCount;
-    
+    //공 삭제만 하는 스크립트임.
+
+   
 
     void Awake()
     {
-        ReviveCount = 10;
         
     }
 
     // Use this for initialization
     void Start () {
-		
+        
 	}
 	
 	// Update is called once per frame
@@ -27,8 +27,9 @@ public class BallDeath : MonoBehaviour {
     {
         if (col.gameObject.tag == "WallD")
         {
-            Destroy(gameObject, 0.1f);
-            ReviveCount--;
+            BallController.reviveCount = BallController.reviveCount - 1;
+            Debug.Log(BallController.reviveCount + ", " + col.gameObject.name);
+            Destroy(gameObject);
             
         }
     }

@@ -16,18 +16,19 @@ public class BallController : MonoBehaviour {
 
     public GameObject Blcok;
 
-    public int rev;
+    
     public bool CanCreate;
+
+    public static int reviveCount;
 
     private void Awake()
     {
+        reviveCount = 2;
+        CanCreate = true;        
         BallCreate();        
-        CanCreate = true;
-        //rev = GetComponent<BallDeath>().ReviveCount;
     }
     // Use this for initialization
     void Start () {
-        
     }
 	
 	// Update is called once per frame
@@ -35,23 +36,28 @@ public class BallController : MonoBehaviour {
 
         BallShoot();
 
-        /*if (CanCreate == true && obj == null)
+        if(obj == null && reviveCount > 0)
         {
-            BallCreate();
+            BallCreate();           
         }
-        if(rev <= 0)
+        else if(obj == null && reviveCount <= 0)
         {
             CanCreate = false;
-        }*/
+        }
+        
+        
         
 	}
 
     void BallCreate()
-    {                
-        obj = Instantiate(Ball, SpawnPosition.position, SpawnPosition.rotation);//게임오브젝트 변수 obj에 Ball프리팹을 SpawnPosition 위치랑 각도 저장
-        obj.transform.SetParent(SpawnPosition);//변수 obj의 부모로 SpawnPosition을 설정
-        rigid = obj.GetComponent<Rigidbody>();
-        FirstCheck = false;//FirstCheck를 false로 바꿔서 Space바를 누르면 발사가능하게 해줌.
+    {
+        if(CanCreate == true)
+        {
+            obj = Instantiate(Ball, SpawnPosition.position, SpawnPosition.rotation);//게임오브젝트 변수 obj에 Ball프리팹을 SpawnPosition 위치랑 각도 저장
+            obj.transform.SetParent(SpawnPosition);//변수 obj의 부모로 SpawnPosition을 설정
+            rigid = obj.GetComponent<Rigidbody>();
+            FirstCheck = false;//FirstCheck를 false로 바꿔서 Space바를 누르면 발사가능하게 해줌.
+        }        
     }
 
     void BallShoot()//FirstCheck가 false고 Space바를 누르면 발사. FirstCheck를 true로 바꿔줌.
